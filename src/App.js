@@ -3,6 +3,7 @@ import './App.css';
 import Particles from 'react-particles-js';
 import Clarifai from 'clarifai';
 import Navigation from './components/Navigationfol/Navigation';
+import SignIn from './components/SignInfol/SignIn';
 import FaceDetection from './components/FaceDetectionfol/FaceDetection';
 import Logo from './components/Logofol/Logo';
 import ImageLinkForm from './components/ImageLinkFormfol/ImageLinkForm';
@@ -43,7 +44,8 @@ class App extends Component {
     this.state = {
       input: '',
       imageUrl: '',
-      box: {}
+      box: {},
+      route: 'signin'
     }
   }
 
@@ -76,18 +78,25 @@ class App extends Component {
     .catch(err => console.log(err));
   }
 
+  onRouteChange = () => {
+    this.setState({route: 'home'});
+  }
+
   render() {
     return (
     <div className="App">
       <Particles className = 'particles' params = {particleOptions}/>
       <Navigation />
-      <Logo />
-      <Rank />
-      <ImageLinkForm 
-        onInputChange = {this.onInputChange}
-        onDetectClick = {this.onDetectClick}
-      />
-      <FaceDetection box = {this.state.box} imageUrl = {this.state.imageUrl}/>
+      { this.state.route === 'signin' 
+        ? <SignIn onRouteChange = {this.onRouteChange} />
+        : 
+        <div>
+          <Logo />
+          <Rank />
+          <ImageLinkForm onInputChange = {this.onInputChange} onDetectClick = {this.onDetectClick}/>
+          <FaceDetection box = {this.state.box} imageUrl = {this.state.imageUrl}/>
+        </div>
+      } 
     </div>
   );
   }
