@@ -47,7 +47,14 @@ class App extends Component {
       imageUrl: '',
       box: {},
       route: 'signin',
-      isSignedIn: false
+      isSignedIn: false,
+      user: {
+        id: '',
+        name: '',
+        email: '',
+        entries: 0,
+        joined: new Date()
+      }
     }
   }
 
@@ -72,7 +79,7 @@ class App extends Component {
     this.setState({input: event.target.value});
   }
 
-  onDetectClick = () => {
+  onPictureSubmit = () => {
     this.setState({imageUrl: this.state.input});
     app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
     .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
@@ -88,6 +95,16 @@ class App extends Component {
     this.setState({route: route});
   }
 
+  loadUser = (data) => {
+    this.setState({user: {
+        id: data.id,
+        name: data.name,
+        email: data.email,
+        entries: 0,
+        joined: new Date()
+    }})
+  }
+
   render() {
     const { isSignedIn, imageUrl, route, box } = this.state;
     return (
@@ -98,17 +115,17 @@ class App extends Component {
           ? 
           <div>
             <Logo />
-            <Rank />
-            <ImageLinkForm onInputChange = {this.onInputChange} onDetectClick = {this.onDetectClick}/>
+            <Rank name = {this.state.user.name} entries = {this.state.user.entries} />
+            <ImageLinkForm onInputChange = {this.onInputChange} onPictureSubmit = {this.onPictureSubmit}/>
             <FaceDetection box = {box} imageUrl = {imageUrl}/>
           </div>
           : 
           ( 
             route === 'signin'
             ?
-            <SignIn onRouteChange = {this.onRouteChange} />
+            <SignIn loadUser = {this.loadUser} onRouteChange = {this.onRouteChange} />
             :
-            <Register onRouteChange = {this.onRouteChange} />
+            <Register loadUser = {this.loadUser} onRouteChange = {this.onRouteChange} />
           ) 
         } 
       </div>
