@@ -1,37 +1,35 @@
 import React from 'react';
 
 class Register extends React.Component {
-	constructor () {
-		super();
+	constructor (props) {
+		super(props);
 		this.state = {
-			registerName: '',
-			registerEmail: '',
-			registerPassword: ''
+			name: '',
+			email: '',
+			password: ''
 		}
 	}
 
 	onNameChange = (event) => {
-		this.setState({registerName: event.target.value});
+		this.setState({name: event.target.value});
 	}
 
 	onEmailChange = (event) => {
-		this.setState({registerEmail: event.target.value});
+		this.setState({email: event.target.value});
 	}
 
 	onPasswordChange = (event) => {
-		this.setState({registerPassword: event.target.value});
+		this.setState({password: event.target.value});
 	}
 
-	onSubmitRegister = () => {
+	onSubmitRegister = (event) => {
 		fetch('http://localhost:3001/register', {
 			method: 'post',
-			headers: {
-				'content-type': 'application/json'
-			},
+			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({
-				name: this.state.registerName,
-				email: this.state.registerEmail,
-				password: this.state.registerPassword
+				name: this.state.name,
+				email: this.state.email,
+				password: this.state.password
 			})
 		})
 		.then(response => response.json())
@@ -56,7 +54,7 @@ class Register extends React.Component {
 				        <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
 				        	type="text" 
 				        	name="name"  
-				        	id="name" 
+				        	id="name"
 				        	onChange = {this.onNameChange}
 				        />
 				      </div>
@@ -75,7 +73,7 @@ class Register extends React.Component {
 				        	className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
 				        	type="password" 
 				        	name="password"  
-				        	id="password" 
+				        	id="password"
 				        	onChange = {this.onPasswordChange}
 				        />
 				      </div>

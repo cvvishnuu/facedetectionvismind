@@ -4,7 +4,7 @@ const Rank = ({name, entries}) => {
 	return (
 		<div>
 			<div className = 'white f2'>
-				{`${name}, your current level is...`}
+				{`${name}, your current entry count is...`}
 			</div>
 			<div className = 'white f1'>
 				{entries}
@@ -14,3 +14,5 @@ const Rank = ({name, entries}) => {
 }
 
 export default Rank;
+
+    

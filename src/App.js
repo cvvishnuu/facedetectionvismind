@@ -47,18 +47,29 @@ class App extends Component {
       imageUrl: '',
       box: {},
       route: 'signin',
-      isSignedIn: false,
+      isSignedIn: false, 
       user: {
         id: '',
         name: '',
         email: '',
         entries: 0,
-        joined: new Date()
+        joined: ''
       }
     }
   }
 
-  calculateFaceLocation = (data) =>{
+loadUser = (data) => {
+    this.setState({user: {
+        id: data.id,
+        name: data.name,
+        email: data.email,
+        entries: data.entries,
+        joined: data.joined
+    }})
+  }
+
+  calculateFaceLocation = (data) => 
+  {
     const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
     const image = document.getElementById('inputimage');
     const width = Number(image.width);
@@ -79,11 +90,29 @@ class App extends Component {
     this.setState({input: event.target.value});
   }
 
-  onPictureSubmit = () => {
+  onDetectClick = () => {
     this.setState({imageUrl: this.state.input});
-    app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
-    .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
-    .catch(err => console.log(err));
+    app.models
+      .predict(
+        Clarifai.FACE_DETECT_MODEL,
+        this.state.input)
+      .then(response => {
+        if(response) {
+          fetch('http://localhost:3001/image', {
+            method: 'put',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+              id: this.state.user.id
+            })
+          })
+            .then(response => response.json())
+            .then(count => {
+              this.setState(Object.assign(this.state.user, {entries: count}))
+            })
+        }
+        this.displayFaceBox(this.calculateFaceLocation(response))
+      })
+      .catch(err => console.log(err));
   }
 
   onRouteChange = (route) => {
@@ -93,16 +122,6 @@ class App extends Component {
       this.setState({isSignedIn: true})
     }
     this.setState({route: route});
-  }
-
-  loadUser = (data) => {
-    this.setState({user: {
-        id: data.id,
-        name: data.name,
-        email: data.email,
-        entries: 0,
-        joined: new Date()
-    }})
   }
 
   render() {
@@ -116,7 +135,7 @@ class App extends Component {
           <div>
             <Logo />
             <Rank name = {this.state.user.name} entries = {this.state.user.entries} />
-            <ImageLinkForm onInputChange = {this.onInputChange} onPictureSubmit = {this.onPictureSubmit}/>
+            <ImageLinkForm onInputChange = {this.onInputChange} onDetectClick = {this.onDetectClick}/>
             <FaceDetection box = {box} imageUrl = {imageUrl}/>
           </div>
           : 
