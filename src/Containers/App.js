@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import Particles from 'react-particles-js';
-import Clarifai from 'clarifai';
 import Navigation from '../components/Navigationfol/Navigation';
 import Register from '../components/Registerfol/Register';
 import SignIn from '../components/SignInfol/SignIn';
@@ -9,11 +8,6 @@ import FaceDetection from '../components/FaceDetectionfol/FaceDetection';
 import Logo from '../components/Logofol/Logo';
 import ImageLinkForm from '../components/ImageLinkFormfol/ImageLinkForm';
 import Rank from '../components/Rankfol/Rank';
-
-const app = new Clarifai.App({
- apiKey: 'aec7195bae514651bcc54fd03c082187'
-});
-
 
 const particleOptions = { 
   particles: {
@@ -94,13 +88,17 @@ loadUser = (data) => {
 
   onDetectClick = () => {
     this.setState({imageUrl: this.state.input});
-    app.models
-      .predict(
-        Clarifai.FACE_DETECT_MODEL,
-        this.state.input)
+      fetch('https://thawing-ridge-79109.herokuapp.com/imageurl', {
+        method: 'post',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          input: this.state.input
+        })
+      })
+      .then(response => response.json())
       .then(response => {
         if(response) {
-          fetch('http://localhost:3001/image', {
+          fetch('https://thawing-ridge-79109.herokuapp.com/image', {
             method: 'put',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
