@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import './App.css';
 import Particles from 'react-particles-js';
 import Clarifai from 'clarifai';
-import Navigation from './components/Navigationfol/Navigation';
-import Register from './components/Registerfol/Register';
-import SignIn from './components/SignInfol/SignIn';
-import FaceDetection from './components/FaceDetectionfol/FaceDetection';
-import Logo from './components/Logofol/Logo';
-import ImageLinkForm from './components/ImageLinkFormfol/ImageLinkForm';
-import Rank from './components/Rankfol/Rank';
+import Navigation from '../components/Navigationfol/Navigation';
+import Register from '../components/Registerfol/Register';
+import SignIn from '../components/SignInfol/SignIn';
+import FaceDetection from '../components/FaceDetectionfol/FaceDetection';
+import Logo from '../components/Logofol/Logo';
+import ImageLinkForm from '../components/ImageLinkFormfol/ImageLinkForm';
+import Rank from '../components/Rankfol/Rank';
 
 const app = new Clarifai.App({
  apiKey: 'aec7195bae514651bcc54fd03c082187'
@@ -39,23 +39,25 @@ const particleOptions = {
   }
 }
 
+const intialState = {
+  input: '',
+  imageUrl: '',
+  box: {},
+  route: 'signin',
+  isSignedIn: false, 
+  user: {
+    id: '',
+    name: '',
+    email: '',
+    entries: 0,
+    joined: ''
+  }
+}
+
 class App extends Component {
   constructor() {
     super();
-    this.state = {
-      input: '',
-      imageUrl: '',
-      box: {},
-      route: 'signin',
-      isSignedIn: false, 
-      user: {
-        id: '',
-        name: '',
-        email: '',
-        entries: 0,
-        joined: ''
-      }
-    }
+    this.state = intialState;
   }
 
 loadUser = (data) => {
@@ -109,6 +111,7 @@ loadUser = (data) => {
             .then(count => {
               this.setState(Object.assign(this.state.user, {entries: count}))
             })
+            .catch(console.log)
         }
         this.displayFaceBox(this.calculateFaceLocation(response))
       })
@@ -117,7 +120,7 @@ loadUser = (data) => {
 
   onRouteChange = (route) => {
     if(route === 'signout'){
-      this.setState({isSignedIn: false})
+      this.setState(intialState)
     } else if (route === 'home') {
       this.setState({isSignedIn: true})
     }
