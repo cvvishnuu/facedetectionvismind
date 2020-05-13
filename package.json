@@ -18,7 +18,7 @@
   },
   "scripts": {
     "dev-server": "webpack-dev-server --open",
-    "start": "node server.js",
+    "start": "react-scripts start",
     "build": "webpack -p",
     "heroku-postbuild": "npm run build",
     "test": "react-scripts test",
