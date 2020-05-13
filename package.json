@@ -1,6 +1,6 @@
 {
   "name": "facedetectionvismind",
-  "homepage":"https://vis-brain.herokuapp.com/"
+  "homepage":"https://vis-brain.herokuapp.com/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
