@@ -96,10 +96,10 @@ loadUser = (data) => {
         })
       })
       .then(response => {
-        if(!response.ok){
-          alert(`The image URL cannot be blank. Please provide the image url`);
+        if(response.status === 400){
+          alert('The image URL cannot be blank. Please provide the image url');
         } else {
-          response.json();
+          return response.json();
         }
       })
       .then(response => {
