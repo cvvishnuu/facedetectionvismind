@@ -95,7 +95,13 @@ loadUser = (data) => {
           input: this.state.input
         })
       })
-      .then(response => response.json())
+      .then(response => {
+        if(!response.ok){
+          alert(`The image URL cannot be blank. Please provide the image url`);
+        } else {
+          response.json();
+        }
+      })
       .then(response => {
         if(response) {
           fetch('https://thawing-ridge-79109.herokuapp.com/image', {
