@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/facedetectionvismind/static/css/main.91a1a018.chunk.css",
-    "main.js": "/facedetectionvismind/static/js/main.ced8577b.chunk.js",
-    "main.js.map": "/facedetectionvismind/static/js/main.ced8577b.chunk.js.map",
+    "main.js": "/facedetectionvismind/static/js/main.52660dd2.chunk.js",
+    "main.js.map": "/facedetectionvismind/static/js/main.52660dd2.chunk.js.map",
     "runtime-main.js": "/facedetectionvismind/static/js/runtime-main.2e9d603d.js",
     "runtime-main.js.map": "/facedetectionvismind/static/js/runtime-main.2e9d603d.js.map",
     "static/css/2.66b7f74f.chunk.css": "/facedetectionvismind/static/css/2.66b7f74f.chunk.css",
     "static/js/2.a61daff0.chunk.js": "/facedetectionvismind/static/js/2.a61daff0.chunk.js",
     "static/js/2.a61daff0.chunk.js.map": "/facedetectionvismind/static/js/2.a61daff0.chunk.js.map",
     "index.html": "/facedetectionvismind/index.html",
-    "precache-manifest.0c35d9a652134ea535dc1dacf85b0add.js": "/facedetectionvismind/precache-manifest.0c35d9a652134ea535dc1dacf85b0add.js",
+    "precache-manifest.33bf2082808153ce93e1104a9b63b6a7.js": "/facedetectionvismind/precache-manifest.33bf2082808153ce93e1104a9b63b6a7.js",
     "service-worker.js": "/facedetectionvismind/service-worker.js",
     "static/css/2.66b7f74f.chunk.css.map": "/facedetectionvismind/static/css/2.66b7f74f.chunk.css.map",
     "static/css/main.91a1a018.chunk.css.map": "/facedetectionvismind/static/css/main.91a1a018.chunk.css.map",
@@ -20,6 +20,6 @@
     "static/css/2.66b7f74f.chunk.css",
     "static/js/2.a61daff0.chunk.js",
     "static/css/main.91a1a018.chunk.css",
-    "static/js/main.ced8577b.chunk.js"
+    "static/js/main.52660dd2.chunk.js"
   ]
 }
